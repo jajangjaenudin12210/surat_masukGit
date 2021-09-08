@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class M_Surat_masuk extends Model
 {
     //
@@ -21,4 +22,10 @@ class M_Surat_masuk extends Model
         'sifat_surat',
         'status'
     ];
+
+    public function mydisposisi()
+    {
+        // return $this->hasMany(M_Disposisi::class,'tbl_disposisi.id_surat_masuk','tbl_surat_masuk.id_surat_masuk');
+        return $this->hasMany(M_Disposisi::class,'id_disposisi');
+    }
 }

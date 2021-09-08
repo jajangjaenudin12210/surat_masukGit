@@ -11,6 +11,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/suratNaik" class="nav-link">
+              <i class="nav-icon fas fa-user-edit"></i>
+              <p>
+                Surat Naik
+                <span class="right badge badge-danger"></span>
+              </p>
+            </a>
           </li>
           <li class="nav-item">
             <a href="/listDisposisi" class="nav-link">

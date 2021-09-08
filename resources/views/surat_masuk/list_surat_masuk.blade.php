@@ -99,6 +99,7 @@
                     <th>Tgl Terima</th>
                     <th>No Agenda</th>
                     <th>Sifat</th>
+                    
                     <th></th>
                   </tr>
                   </thead>
@@ -115,6 +116,7 @@
                     <td>{{$sm->tgl_terima}}</td>
                     <td>{{$sm->no_agenda}}</td>
                     <td>{{$sm->sifat_surat}}</td>
+                    
                     <td>
                       <a href="/hapusSuratMasuk/{{$sm->id_surat_masuk}}" class="btn btn-danger konfirmasi"><i class="fas fa-trash-alt"></i></a>
                       
@@ -131,6 +133,8 @@
                         data-sifat_surat="{{$sm->sifat_surat}}">
                         <i class="fas fa-edit"></i></button></a>
                       <a href="/kirimSurat/{{$sm->id_surat_masuk}}" class="btn btn-success konfirmasi"><i class="fas fa-paper-plane"></i></a>
+
+                      
                       
                     </td>
                   </tr>
@@ -167,6 +171,7 @@
  @includeIf('surat_masuk.tambah_surat_masuk')
  @includeIf('surat_masuk.ubah_surat_masuk')
  @includeIf('surat_masuk.tambahUbahSurat')
+ 
 </body>
 <!-- ./wrapper -->
 

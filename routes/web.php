@@ -23,3 +23,7 @@ Route::get('/listDisposisi', 'Disposisi@listDisposisi');
 Route::get('/kirimSurat/{id}','Surat_masuk@kirimSurat');
 
 Route::post('/tambahDisposisi','Disposisi@tambahDisposisi');
+
+Route::get('/suratNaik','Surat_masuk@suratNaik');
+
+Route::get('/tambahDis/{id}','Disposisi@tambahDis');

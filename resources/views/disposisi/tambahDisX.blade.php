@@ -73,7 +73,7 @@
                   <div class="container-fluid">
                     <div class="row mb-0">
                       <div class="col-sm-6">
-                        <h1 >Data surat masuk yang telah di disposisi</h1>
+                        <h1 >Data Surat Masuk</h1>
                       </div>
                       
                     </div>
@@ -83,43 +83,81 @@
 
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                  <thead>
-                  <tr>
-                    <th>Asal Surat</th>
-                    <th>Nomor Surat</th>
-                    <th>Tgl Surat</th>
-                    <th>Perihal</th>
-                    <th>File Surat</th>
-                    <th>Tgl Terima</th>
-                    <th>No Agenda</th>
-                    <th>Sifat</th>
-                    <th>Instruksi</th>
-                    <th>Tgl Instruksi</th>
-                    <th>Kepada</th>
-                  </tr>
-                  </thead>
-                  <tbody>
+                <form action="/tambahDisposisi/{{$dataSM->id_surat_masuk }}" method="post" role="form" enctype="multipart/form-data">
+                  <div class="modal-body">  
+                      {{csrf_field()}}
+                      <input type="hidden" name="id_surat_masuk" id="id_surat_masuk" class="id_surat_masuk" value="{{ $dataSM->id_surat_masuk }}">
 
-                  @foreach ($disposisi as $dis)
-                  <tr>
-                    <td>{{$dis->suratMasuk->asal_surat_masuk}}</td>
-                    <td>{{$dis->suratMasuk->no_surat_masuk}}</td>
-                    <td>{{$dis->suratMasuk->tgl_surat_masuk}}</td>
-                    <td>{{$dis->suratMasuk->perihal_surat_masuk}}</td>
-                    <td>
-                      <a href="{{asset(Storage::url($dis->suratMasuk->file_surat_masuk))}}" class="btn btn-warning" target="_blank"><i class="fa fa-eye">Lihat Surat</i></a>
-                    </td>
-                    <td>{{$dis->suratMasuk->tgl_terima}}</td>
-                    <td>{{$dis->suratMasuk->no_agenda}}</td>
-                    <td>{{$dis->suratMasuk->sifat_surat}}</td>
-                    <td>{{$dis->instruksi}}</td>
-                    <td>{{$dis->tgl_instruksi}}</td>
-                    <td>{{$dis->penerima_instruksi}}</td>
-                  </tr>
-                  @endforeach
-                  </tbody>
-                </table>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Asal Surat:</label>
+                        <input type="text" class="form-control asal_surat_masuk" id="u_asal_surat_masuk" name="u_asal_surat_masuk" value="{{ $dataSM->asal_surat_masuk }}" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Nomor Surat:</label>
+                        <input type="text" class="form-control no_surat_masuk" id="u_no_surat_masuk" name="u_no_surat_masuk" value="{{ $dataSM->no_surat_masuk }}" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tanggal Surat:</label>
+                        <input type="date" class="form-control tgl_surat_masuk" id="u_tgl_surat_masuk" name="u_tgl_surat_masuk" value="{{ $dataSM->tgl_surat_masuk }}" disabled>
+
+                      </div>
+                      <div class="form-group">
+                        <label for="message-text" class="col-form-label">Perihal</label>
+                        <textarea class="form-control perihal_surat_masuk" id="u_perihal_surat_masuk" name="u_perihal_surat_masuk" disabled><?php echo $dataSM['perihal_surat_masuk']?></textarea>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="message-text">Upload File Surat Masuk :</label>
+                        <a href="{{asset(Storage::url($dataSM->file_surat_masuk))}}" class="btn btn-warning" target="_blank"><i class="fa fa-eye">Lihat Surat</i></a>
+                        <!-- <input type="file" class="form-control" id="u_file_surat_masuk" name = "u_file_surat_masuk" accept="application/pdf, image/png, image/jpg, image/gif" value="{{ $dataSM['public/file_surat_masuk'] }}"> -->
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tanggal Terima Surat:</label>
+                        <input type="date" class="form-control tgl_terima" id="u_tgl_terima" name="u_tgl_terima" value="{{ $dataSM->tgl_terima }}" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Nomor Agenda:</label>
+                        <input type="number" class="form-control no_agenda" id="u_no_agenda" name="u_no_agenda" value="{{ $dataSM->no_agenda }}" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Sifat Surat:</label>
+                          <select class="form-control select2 sifat_surat" id="u_sifat_surat" name="u_sifat_surat" style="width: 100%;" disabled>
+                            <option selected value="{{$dataSM->sifat_surat}}">{{$dataSM->sifat_surat}}</option>
+                            <!-- <option>-</option>
+                            <option Value="Biasa">Biasa</option>
+                            <option Value="Penting">Penting</option>
+                            <option Value="Sangat Penting">Sangat Penting</option>
+                            <option Value="Rahasia">Rahasia</option>
+                            <option Value="Segera">Segera</option> -->
+                          </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="message-text" class="col-form-label">Instruksi</label>
+                        <textarea class="form-control" id="instruksi" name="instruksi"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tanggal Instruksi:</label>
+                        <input type="date" class="form-control" id="tgl_instruksi" name="tgl_instruksi">
+                      </div>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Penerima Instruksi:</label>
+                          <select class="form-control select2" id="penerima_instruksi" name="penerima_instruksi" style="width: 100%;">
+                            <option>-</option>
+                            <option>Sekretaris</option>
+                            <option>Kepala Bidang PP ASN</option>
+                            <option>Kepala Bidang Bangpeg</option>
+                            <option>Kepala Bidang Kesdis</option>
+                            <option>Kepala Bidang Diklat</option>
+                          </select>
+                      </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <a href="/suratNaik"><button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button></a>
+                     <button type="submit" class="btn btn-primary">Simpan Edit</button>
+                  </div>
+                  </form>
               </div>
               <!-- /.card-body -->
             
@@ -147,8 +185,6 @@
   @include('parsial.footer')
  
 </div>
-
-
 </body>
 <!-- ./wrapper -->
 

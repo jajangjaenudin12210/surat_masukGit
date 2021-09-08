@@ -73,7 +73,7 @@
                   <div class="container-fluid">
                     <div class="row mb-0">
                       <div class="col-sm-6">
-                        <h1 >Data surat masuk yang telah di disposisi</h1>
+                        <h1 >Data Surat Masuk</h1>
                       </div>
                       
                     </div>
@@ -95,8 +95,7 @@
                     <th>No Agenda</th>
                     <th>Sifat</th>
                     <th>Instruksi</th>
-                    <th>Tgl Instruksi</th>
-                    <th>Kepada</th>
+                    <th>Disposisi</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -113,9 +112,15 @@
                     <td>{{$dis->suratMasuk->tgl_terima}}</td>
                     <td>{{$dis->suratMasuk->no_agenda}}</td>
                     <td>{{$dis->suratMasuk->sifat_surat}}</td>
+                    
                     <td>{{$dis->instruksi}}</td>
-                    <td>{{$dis->tgl_instruksi}}</td>
-                    <td>{{$dis->penerima_instruksi}}</td>
+                    
+                    <td>
+                        <<!-- button 
+                        data-id_surat_masuk="{{$dis->suratMasuk->id_surat_masuk}}"
+                        data-toggle="modal" data-target="#diposisiModal" type="button" class="btn btn-secondary ubah"><i class="fas fa-pencil-alt"></i></button> -->
+                      
+                    </td>
                   </tr>
                   @endforeach
                   </tbody>
@@ -147,7 +152,7 @@
   @include('parsial.footer')
  
 </div>
-
+ <!-- @includeIf('disposisi.tambahDis') -->
 
 </body>
 <!-- ./wrapper -->

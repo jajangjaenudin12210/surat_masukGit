@@ -25,58 +25,16 @@ use App\M_Surat_masuk;
 
 use App\M_Disposisi;
 
+use DB;
+
 class Disposisi extends Controller
 {
-    // public function listDisposisi(){
-    //     $data['surat_masuk'] = M_Surat_masuk::where('status', '2')->paginate(10);
-
-    //     return view('disposisi.listDis',$data);
-    // }
 
     public function listDisposisi(){
-        $key = env('APP_KEY');
-        $token = Session::get('token');
-        $tokenDb = M_Admin::where('token', $token)->count();
-        $decode = JWT::decode($token,$key,array('HS256'));
-        $decode_array = (array) $decode;
 
-        if($tokenDb > 0){
-            $disposisi = M_Disposisi::where('id_admin', $decode_array['id_admin'])->get();
-
-            $dataArr = array();
-            foreach ($disposisi as $d) {
-                $surat_masuk = M_Surat_masuk::where('id_surat_masuk',$d->id_surat_masuk)->first();
-                $adm = M_Admin::where('id_admin', $decode_array['id_admin'])->first();
-
-
-
-                $dataArr[] = array(
-                    "id_disposisi" => $disposisi->id_disposisi,
-                    "id_surat_masuk" => $surat_masuk->id_surat_masuk,
-                    "id_admin" => $surat_masuk->id_admin,
-                    "asal_surat_masuk" => $surat_masuk->asal_surat_masuk,
-                    "no_surat_masuk" => $surat_masuk->no_surat_masuk,
-                    "perihal_surat_masuk" => $surat_masuk->perihal_surat_masuk,
-                    "tgl_surat_masuk" => $surat_masuk->tgl_surat_masuk,
-                     // 'file_surat_masuk' => $path,
-                    "tgl_terima" => $surat_masuk->tgl_terima,
-                    "no_agenda" => $surat_masuk->no_agenda,
-                    "sifat_surat" => $surat_masuk->sifat_surat,
-                    "instruksi" => $disposisi->instruksi,
-                    "tgl_instruksi" => $disposisi->tgl_instruksi,
-                    "penerima_instruksi" => $disposisi->penerima_instruksi 
-
-                );
-            }
-            $data['disposis'] = $dataArr;
-            // $sup = M_Suplier::where('id_suplier',$decode_array['id_suplier'])->first();
-            // $data['nama_usaha'] = $sup->nama_usaha;
-            return view('suplier.riwayat_pengajuan',$data);
-
-        
-        }else{
-            return redirect ('/listSuplier')->with('gagal','Pengajuan Sudah Pernah Dilakukan');
-        }
+        $data['disposisi'] = M_Disposisi::with('suratMasuk')->get();
+ 
+        return view('disposisi.listDis')->with('disposisi', $data['disposisi']);
     }
 
 
@@ -105,14 +63,22 @@ class Disposisi extends Controller
                         'tgl_instruksi' => $request->tgl_instruksi,
                         'penerima_instruksi' => $request->penerima_instruksi
                     ])){
-                        return redirect ('/listDisposisi')->with('berhasil','Pengajuan Berhasil, Mohon Ditunggu');
+                        M_Surat_masuk::where('id_surat_masuk',$request->id_surat_masuk)->update(["status" =>"3"]);
+                        return redirect ('/suratNaik')->with('berhasil','Pengajuan Berhasil, Mohon Ditunggu');
                 }else{
-                    return redirect ('/listDisposisi')->with('gagal','Pengajuan Sudah Pernah Dilakukan');
+                    return redirect ('/tambahSurat')->with('gagal','Pengajuan Sudah Pernah Dilakukan');
                 }
         }else{
             return redirect ('/')->with('gagal','Anda Sudah logout, silahkan login kembali');
         }
     }
 
+    public function tambahDis(Request $request, $id){
+        $token = Session::get('token');
+        $tokenDb = M_Admin::where('token', $token)->count();
+        
+        $dataSM = M_Surat_masuk::findOrFail($id);
+        return view('disposisi.tambahDis', compact ('dataSM'));
+    }
 
 }

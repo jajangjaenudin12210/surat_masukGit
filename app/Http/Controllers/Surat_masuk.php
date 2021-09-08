@@ -25,7 +25,7 @@ class Surat_masuk extends Controller
 {
     //
     public function tambahSurat(){
-        $data['surat_masuk'] = M_Surat_masuk::where('status', '1')->paginate(10);
+        $data['surat_masuk'] = M_Surat_masuk::where('status','1')->paginate(10);
         return view('surat_masuk.list_surat_masuk',$data);
     }
 
@@ -195,6 +195,11 @@ class Surat_masuk extends Controller
         }else{
             return redirect('/')->with('gagal', 'Anda Silahkan Login Dahulu');
         }
+    }
+
+    public function suratNaik(){
+        $data['surat_masuk'] = M_Surat_masuk::where('status','2')->paginate(10);
+        return view('surat_masuk.list_surat_naik',$data);
     }
     
 }

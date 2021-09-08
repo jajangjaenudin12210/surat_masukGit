@@ -73,8 +73,7 @@
                   <div class="container-fluid">
                     <div class="row mb-0">
                       <div class="col-sm-6">
-                        <h1 >Data surat masuk yang telah di disposisi</h1>
-                      </div>
+                        <h1 >Data Surat Yang Naik Ke Pimpinan</h1>
                       
                     </div>
                   </div><!-- /.container-fluid -->
@@ -94,28 +93,30 @@
                     <th>Tgl Terima</th>
                     <th>No Agenda</th>
                     <th>Sifat</th>
-                    <th>Instruksi</th>
-                    <th>Tgl Instruksi</th>
-                    <th>Kepada</th>
+                    
+                    <th></th>
                   </tr>
                   </thead>
                   <tbody>
-
-                  @foreach ($disposisi as $dis)
+                  @foreach($surat_masuk as $sm)
                   <tr>
-                    <td>{{$dis->suratMasuk->asal_surat_masuk}}</td>
-                    <td>{{$dis->suratMasuk->no_surat_masuk}}</td>
-                    <td>{{$dis->suratMasuk->tgl_surat_masuk}}</td>
-                    <td>{{$dis->suratMasuk->perihal_surat_masuk}}</td>
+                    <td>{{$sm->asal_surat_masuk}}</td>
+                    <td>{{$sm->no_surat_masuk}}</td>
+                    <td>{{$sm->tgl_surat_masuk}}</td>
+                    <td>{{$sm->perihal_surat_masuk}}</td>
                     <td>
-                      <a href="{{asset(Storage::url($dis->suratMasuk->file_surat_masuk))}}" class="btn btn-warning" target="_blank"><i class="fa fa-eye">Lihat Surat</i></a>
+                      <a href="{{asset(Storage::url($sm->file_surat_masuk))}}" class="btn btn-warning" target="_blank"><i class="fa fa-eye">Lihat Surat</i></a>
                     </td>
-                    <td>{{$dis->suratMasuk->tgl_terima}}</td>
-                    <td>{{$dis->suratMasuk->no_agenda}}</td>
-                    <td>{{$dis->suratMasuk->sifat_surat}}</td>
-                    <td>{{$dis->instruksi}}</td>
-                    <td>{{$dis->tgl_instruksi}}</td>
-                    <td>{{$dis->penerima_instruksi}}</td>
+                    <td>{{$sm->tgl_terima}}</td>
+                    <td>{{$sm->no_agenda}}</td>
+                    <td>{{$sm->sifat_surat}}</td>
+                    
+                    <td>
+
+                      <a href="/tambahDis/{{ $sm->id_surat_masuk }}" class="btn btn-danger"><i class="fas fa-pencil-alt"></i></a>
+
+                      
+                    </td>
                   </tr>
                   @endforeach
                   </tbody>
@@ -147,8 +148,10 @@
   @include('parsial.footer')
  
 </div>
-
-
+ <!-- @includeIf('surat_masuk.tambah_surat_masuk')
+ @includeIf('surat_masuk.ubah_surat_masuk')
+ @includeIf('surat_masuk.tambahUbahSurat') -->
+ 
 </body>
 <!-- ./wrapper -->
 
